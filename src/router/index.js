@@ -1,11 +1,47 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
-import Home from '../views/Home.vue'
 
 const routes = [
   {
     path: '/',
-    name: 'Home',
-    component: Home
+    name: 'administradores',
+    component: () => import(/* webpackChunkName: "about" */ '../components/Dashboard.vue'),
+    children:[
+      {
+        path:'tabla',
+        name:'tabla',
+        component: () => import(/* webpackChunkName: "about" */ '../components/AdministradoresTabla.vue'), 
+      },
+      {
+        path:'perfil',
+        name:'perfil',
+        component: () => import(/* webpackChunkName: "about" */ '../components/AdministradoresPerfil.vue'),
+        props: ( route ) =>{
+          return{
+              userID: route.params.userID,
+          } 
+        } 
+      },
+      {
+        path:'agregar',
+        name:'agregar',
+        component: () => import(/* webpackChunkName: "about" */ '../components/AdministradoresAgregar.vue'), 
+      },
+      {
+        path:'editar',
+        name:'editar',
+        component: () => import(/* webpackChunkName: "about" */ '../components/AdministradoresEditar.vue'),
+        props: ( route ) =>{
+          return{
+              userID: route.params.userID,
+          } 
+        }
+      },
+      {
+        path:'guardar',
+        name:'guardar',
+        component: () => import(/* webpackChunkName: "about" */ '../components/AdministradoresGuardar.vue'), 
+      },
+    ]
   },
   {
     path: '/about',
